@@ -1,0 +1,23 @@
+{% extends "todos/index.html" %} {% block content %} {% for todo in todos %}
+<div class="border d-flex justify-content-between">
+  <li>
+    <strong>{{todo.title}}</strong> - <span>{{todo.user_name}}</span>
+    <p>{{todo.description}}</p>
+  </li>
+  <div>
+    <a
+      href="{% url 'update_todo' todo.id%}"
+      class="btn btn-sm btn-primary me-1"
+    >
+      Edit
+    </a>
+    <a href="{% url 'delete_todo' todo.id%}" class="btn btn-sm btn-danger">
+      Delete
+    </a>
+  </div>
+</div>
+
+{% empty %}
+<li>No todos yet</li>
+
+{% endfor %} {% endblock %}

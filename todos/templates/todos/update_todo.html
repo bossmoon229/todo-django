@@ -1,0 +1,15 @@
+{% extends "todos/index.html" %} {% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <form
+    method="POST"
+    class="form-group d-flex flex-column w-50 mx-auto p-4 bg-light rounded shadow"
+  >
+    {% csrf_token %}
+    <input type="text" name="user_name" value="{{todo.user_name}}" />
+    <input type="text" name="title" value="{{todo.title}}" />
+    <input type="text" name="description" value="{{todo.description}}" />
+
+    <button class="btn btn-success" type="submit">Update todo</button>
+  </form>
+</div>
+{%endblock%}
