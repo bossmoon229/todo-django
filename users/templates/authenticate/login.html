@@ -1,0 +1,32 @@
+{% extends "todos/index.html" %} {% block content %}
+
+
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-50 bg-light p-4 rounded shadow">
+    <h2 class="text-center mb-4">Login</h2>
+
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-danger text-center mb-3">
+          {{ message }}
+        </div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="POST" class="form-group">
+      {% csrf_token %}
+
+      <label for="username" class="form-label">Username</label>
+      <input type="text" name="username" class="form-control mb-3" />
+
+      <label for="password" class="form-label">Password</label>
+      <input type="password" name="password" class="form-control mb-3" />
+
+      <button type="submit" class="btn btn-primary w-100">Login</button>
+    </form>
+  </div>
+</div>
+
+
+{% endblock %}

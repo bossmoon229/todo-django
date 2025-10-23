@@ -23,5 +23,6 @@ urlpatterns = [
     path('todos/',show_todos, name="show_todos"),
     # path('create/',create_todo, name="create_todo"),
     # path('', home_page, name="home_page"),
-    path("", include("todos.urls"))
+    path("", include("todos.urls")),
+    path("users/", include("users.urls"))
 ]
