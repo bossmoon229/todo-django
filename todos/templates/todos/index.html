@@ -24,14 +24,13 @@
 
         <div class="navbar-nav ms-auto d-flex flex-row">
           {% if user.is_authenticated %}
+          <span class="nav-link me-3">Hello <b>{{user.username}}</b></span>
           <a class="nav-link me-3" href="{% url 'logout_user' %}">Logout</a>
           {% else %}
-          
-          <a class="nav-link me-3" href="{% url 'login_user' %}">Login</a>
-          {% endif %}
 
-          
-          {% comment %} <a class="nav-link" href="{% url 'register' %}">Register</a> {% endcomment %}
+          <a class="nav-link me-3" href="{% url 'login_user' %}">Login</a>
+          <a class="nav-link" href="{% url 'register_user' %}">Register</a>
+          {% endif %}
         </div>
       </div>
     </nav>

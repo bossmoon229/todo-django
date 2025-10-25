@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.http import HttpResponse
-
+from django.contrib.auth.forms import UserCreationForm
 # Create your views here.
 
 
@@ -24,5 +23,28 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    messages.success(request, ("U were logout"))
+    
+    storage = messages.get_messages(request)
+    storage.used = True  # очищає всі попередні messages
     return redirect('home_page')
+
+
+def register_user(request):
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            user = authenticate(username = username, password = password)
+            login(request,user)
+            return redirect("show_todos")
+        else:
+           
+            messages.error(request, "This username already exists or the form is invalid.")
+    else:
+        form = UserCreationForm()
+    
+    return render(request, "authenticate/register_user.html", {"form": form})
+   
+        

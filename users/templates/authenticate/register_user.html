@@ -1,0 +1,16 @@
+{% extends "todos/index.html" %} {% block content %}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="w-50 bg-light p-4 rounded shadow">
+    <h2 class="text-center mb-4">Register</h2>
+    {% if messages %} {% for message in messages %}
+    <div class="alert alert-danger text-center mb-3">{{ message }}</div>
+    {% endfor %} {% endif %}
+    <form method="POST" action="{% url 'register_user' %}" class="form-group">
+      {% csrf_token %} {{form}}
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}
