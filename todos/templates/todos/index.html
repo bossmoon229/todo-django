@@ -37,9 +37,16 @@
 
     {% block content %}
 
+    {% if user.is_staff %}
+    
     <div class="d-flex vh-100 justify-content-center align-items-center">
-      <h2>You have {{ todos_count }} todos pending</h2>
+      <h2>You have {{ todos_count }} at all</h2>
     </div>
+    {% else %}
+    <div class="d-flex vh-100 justify-content-center align-items-center">
+      <h2>Your todos: {{ todos_count }} </h2>
+    </div>
+    {% endif %}
 
     {% endblock %}
     <script

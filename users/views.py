@@ -25,7 +25,7 @@ def logout_user(request):
     logout(request)
     
     storage = messages.get_messages(request)
-    storage.used = True  # очищає всі попередні messages
+    storage.used = True 
     return redirect('home_page')
 
 

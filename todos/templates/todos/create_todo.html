@@ -1,16 +1,33 @@
-{% extends "todos/index.html" %} {% block content %} 
-    <div class="d-flex justify-content-center align-items-center vh-100 ">
-        
-        <form method="POST" class="form-group d-flex flex-column w-50 mx-auto p-4 bg-light rounded shadow">
-            {% csrf_token %}
-            <label for="">Your name</label>
-            <input name="user_name" class="form-control mb-3" type="text" placeholder="Enter your name" />
-            <label for="">Todo</label>
-            <input name="title" class="form-control mb-3" type="text" placeholder="Enter your todo" />
-            <label for="">Description</label>
-            <input name="description" class="form-control mb-3" type="text" placeholder="Enter your todo" />
-            {% comment %} <textarea name="description" class="form-control mb-3" placeholder="Enter your todo"></textarea> {% endcomment %}
-            <button class="btn btn-success" type="submit">Create todo</button>
-        </form>
-    </div>
+{% extends "todos/index.html" %} {% block content %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <form
+    method="POST"
+    class="form-group d-flex flex-column w-50 mx-auto p-4 bg-light rounded shadow"
+  >
+    {% csrf_token %}
+
+    <label for="">Todo</label>
+    <input
+      name="title"
+      class="form-control mb-3"
+      type="text"
+      placeholder="Enter your todo"
+    />
+    <label for="">Description</label>
+    <input
+      name="description"
+      class="form-control mb-3"
+      type="text"
+      placeholder="Enter your todo"
+    />
+    {% comment %}
+    <textarea
+      name="description"
+      class="form-control mb-3"
+      placeholder="Enter your todo"
+    ></textarea>
+    {% endcomment %}
+    <button class="btn btn-success" type="submit">Create todo</button>
+  </form>
+</div>
 {% endblock %}
