@@ -7,6 +7,8 @@ class Todo(models.Model):
     user= models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     title = models.CharField(max_length=10)
     description = models.TextField(max_length=100)
+    is_done = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
