@@ -37,7 +37,11 @@ def create_todo(request):
         if request.user.is_authenticated:
             title = request.POST.get("title")
             description = request.POST.get("description")
-            Todo.objects.create(user = request.user,title=title, description=description )
+            deadline = request.POST.get("deadline")
+            priority = request.POST.get("priority")
+            status = request.POST.get("status")
+
+            Todo.objects.create(user = request.user,title=title, description=description, deadline=deadline, status=status, priority=priority  )
             return redirect("show_todos")
         else:
             return redirect("login_user")

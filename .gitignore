@@ -20,3 +20,8 @@ media/
 
 # Mac / Linux
 .DS_Store
+
+
+node_modules/
+
+todo.txt

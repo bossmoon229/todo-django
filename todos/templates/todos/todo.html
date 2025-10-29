@@ -1,82 +1,110 @@
-{% extends "todos/index.html" %} {% block content %}
+{% extends "todos/index.html" %}
+{% block content %}
 <div class="container my-4">
-  <div class="row justify-content-center">
-    <div class="col-md-8">
-
-      <h1>Done</h1>
+  <div class="row">
+    <!-- Колонка DONE -->
+    <div class="col-md-6">
+      <h2 class="text-success mb-3 text-center">Done</h2>
 
       {% for todo in todos %}
-      {% if todo.is_done %}
-      
-        <div class="card mb-3 shadow-sm {% if todo.is_done %}bg-light text-muted{% endif %}">
-          <div class="card-body d-flex justify-content-between align-items-center">
-            <div class="form-check">
-              <input 
-                class="form-check-input me-2" 
-                type="checkbox" 
-                onchange="window.location.href='{% url 'toggle_todo' todo.id %}'" 
-                {% if todo.is_done %}checked{% endif %}>
-              <label class="form-check-label">
-                <h5 class="card-title mb-1 {% if todo.is_done %}text-decoration-line-through{% endif %}">
-                  {{ todo.title }}
-                </h5>
-                <p class="card-text {% if todo.is_done %}text-decoration-line-through{% endif %}">
-                  {{ todo.description }}
-                </p>
-                <h6 class="card-subtitle text-muted">Created by {{ todo.user.username }}</h6>
-                <p>Create at {{todo.created_at}}</p>
-              </label>
-            </div>
+        {% if todo.is_done %}
+          <div class="card mb-3 shadow-sm
+              {% if todo.status == 'todo' %}
+                  bg-danger-subtle text-black
+              {% elif todo.status == 'in_progress' %}
+                  bg-warning-subtle text-black
+              {% elif todo.status == 'done' %}
+                  bg-success-subtle text-black
+              {% endif %}
+          ">
+            <div class="card-body d-flex justify-content-between align-items-center">
+              <div class="form-check">
+                <input 
+                  class="form-check-input me-2" 
+                  type="checkbox" 
+                  onchange="window.location.href='{% url 'toggle_todo' todo.id %}'" 
+                  {% if todo.is_done %}checked{% endif %}>
+                <label class="form-check-label">
+                  <h5 class="card-title mb-1 {% if todo.is_done %}text-decoration-line-through{% endif %}">
+                    {{ todo.title }}
+                  </h5>
+                  <h6 class="mb-1">
+                    {% if todo.priority == 'high' %}
+                      <span class="badge bg-danger">Priority: High</span>
+                    {% elif todo.priority == 'medium' %}
+                      <span class="badge bg-warning text-dark">Priority: Medium</span>
+                    {% else %}
+                      <span class="badge bg-success">Priority: Low</span>
+                    {% endif %}
+                  </h6>
+                  <p class="card-text {% if todo.is_done %}text-decoration-line-through{% endif %}">
+                    {{ todo.description }}
+                  </p>
+                  <h6 class="card-subtitle text-muted">Created by {{ todo.user.username }}</h6>
+                  <small>Created at {{ todo.created_at }}</small>
+                </label>
+              </div>
 
-            <div class="text-end">
-              <a href="{% url 'update_todo' todo.id %}" class="btn btn-sm btn-primary me-1">Edit</a>
-              <a href="{% url 'delete_todo' todo.id %}" class="btn btn-sm btn-danger">Delete</a>
+              <div class="text-end">
+                <a href="{% url 'update_todo' todo.id %}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <a href="{% url 'delete_todo' todo.id %}" class="btn btn-sm btn-danger">Delete</a>
+              </div>
             </div>
           </div>
-        </div>
-
         {% endif %}
-
-    {% empty %}
+      {% empty %}
         <p class="text-center mt-4">No todos yet</p>
-    {% endfor %}
-    <h1>Not done</h1>
+      {% endfor %}
+    </div>
+
+    <!-- Колонка NOT DONE -->
+    <div class="col-md-6">
+      <h2 class="text-danger mb-3 text-center">Not done</h2>
+
       {% for todo in todos %}
-      {% if todo.is_done == False %}
-      
-        <div class="card mb-3 shadow-sm {% if todo.is_done %}bg-light text-muted{% endif %}">
-          <div class="card-body d-flex justify-content-between align-items-center">
-            <div class="form-check">
-              <input 
-                class="form-check-input me-2" 
-                type="checkbox" 
-                onchange="window.location.href='{% url 'toggle_todo' todo.id %}'" 
-                {% if todo.is_done %}checked{% endif %}>
-              <label class="form-check-label">
-                <h5 class="card-title mb-1 {% if todo.is_done %}text-decoration-line-through{% endif %}">
-                  {{ todo.title }}
-                </h5>
-                <p class="card-text {% if todo.is_done %}text-decoration-line-through{% endif %}">
-                  {{ todo.description }}
-                </p>
-                <h6 class="card-subtitle text-muted">Created by {{ todo.user.username }}</h6>
-                <p>Create at {{todo.created_at}}</p>
-              </label>
-            </div>
+        {% if not todo.is_done %}
+          <div class="card mb-3 shadow-sm 
+              {% if todo.status == 'todo' %}
+                  bg-danger-subtle text-black
+              {% elif todo.status == 'in_progress' %}
+                  bg-warning-subtle text-black
+              {% elif todo.status == 'done' %}
+                  bg-success-subtle text-black
+              {% endif %}
+          ">
+            <div class="card-body d-flex justify-content-between align-items-center">
+              <div class="form-check">
+                <input 
+                  class="form-check-input me-2" 
+                  type="checkbox" 
+                  onchange="window.location.href='{% url 'toggle_todo' todo.id %}'">
+                <label class="form-check-label">
+                  <h5 class="card-title mb-1">{{ todo.title }}</h5>
+                  <h6 class="mb-1">
+                    {% if todo.priority == 'high' %}
+                      <span class="badge bg-danger">Priority: High</span>
+                    {% elif todo.priority == 'medium' %}
+                      <span class="badge bg-warning text-dark">Priority: Medium</span>
+                    {% else %}
+                      <span class="badge bg-success">Priority: Low</span>
+                    {% endif %}
+                  </h6>
+                  <p class="card-text">{{ todo.description }}</p>
+                  <h6 class="card-subtitle text-muted">Created by {{ todo.user.username }}</h6>
+                  <small>Created at {{ todo.created_at }}</small>
+                </label>
+              </div>
 
-            <div class="text-end">
-              <a href="{% url 'update_todo' todo.id %}" class="btn btn-sm btn-primary me-1">Edit</a>
-              <a href="{% url 'delete_todo' todo.id %}" class="btn btn-sm btn-danger">Delete</a>
+              <div class="text-end">
+                <a href="{% url 'update_todo' todo.id %}" class="btn btn-sm btn-primary me-1">Edit</a>
+                <a href="{% url 'delete_todo' todo.id %}" class="btn btn-sm btn-danger">Delete</a>
+              </div>
             </div>
           </div>
-        </div>
-
         {% endif %}
-
-    {% empty %}
+      {% empty %}
         <p class="text-center mt-4">No todos yet</p>
-    {% endfor %}
-  
+      {% endfor %}
     </div>
   </div>
 </div>
