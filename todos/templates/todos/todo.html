@@ -23,7 +23,8 @@
                 <p class="card-text {% if todo.is_done %}text-decoration-line-through{% endif %}">
                   {{ todo.description }}
                 </p>
-                <h6 class="card-subtitle text-muted">Created by {{ user.username }}</h6>
+                <h6 class="card-subtitle text-muted">Created by {{ todo.user.username }}</h6>
+                <p>Create at {{todo.created_at}}</p>
               </label>
             </div>
 
@@ -58,7 +59,8 @@
                 <p class="card-text {% if todo.is_done %}text-decoration-line-through{% endif %}">
                   {{ todo.description }}
                 </p>
-                <h6 class="card-subtitle text-muted">Created by {{ user.username }}</h6>
+                <h6 class="card-subtitle text-muted">Created by {{ todo.user.username }}</h6>
+                <p>Create at {{todo.created_at}}</p>
               </label>
             </div>
 

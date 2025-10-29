@@ -1,4 +1,3 @@
-
 from .models import Todo
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -28,8 +27,6 @@ def show_todos(request):
     else:
         return redirect("login_user")
         
-    done_todo = todos.filter(is_done = True)
-    not_done_todo = todos.filter(is_done = False)
     return render(request, "todos/todo.html", {"todos":todos})
 
 
@@ -41,7 +38,6 @@ def create_todo(request):
             title = request.POST.get("title")
             description = request.POST.get("description")
             Todo.objects.create(user = request.user,title=title, description=description )
-            # Todo.objects.create(user_name=user_name,title=title, description=description)
             return redirect("show_todos")
         else:
             return redirect("login_user")
